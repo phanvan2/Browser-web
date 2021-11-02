@@ -38,6 +38,12 @@ public class GuiScreen extends JFXPanel {
 			this.webEngine.loadContent(content,"text/html");
 		}); 
 	}
+	public void backHistory() {
+		Platform.runLater(() -> {
+			this.webEngine.executeScript("history.back()");
+		}); 
+
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		JFrame frame = new JFrame("Gui Screen");
