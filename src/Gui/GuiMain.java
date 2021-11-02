@@ -64,7 +64,7 @@ public class GuiMain extends JFrame {
 	 */
 	public GuiMain() {
 		setTitle("webBrowser");
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		JTabbedPane tabbedPane = new GuiTabs().createJTabbedPane(); 
 		
 	     
 	      setBackground(Color.BLACK);
@@ -83,22 +83,7 @@ public class GuiMain extends JFrame {
 			
 
 	      getContentPane().add(tabbedPane, BorderLayout.CENTER);
-	      tabbedPane.add(newTAb(),"tab1") ; 
-	      
-	      JButton btnNewButton = new JButton("New Tab");
-	      btnNewButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				JPanel panel1 = newTAb();
-				
-				tabbedPane.add(panel1, "new tab") ; 
-				
-			}
-		});
-	      getContentPane().add(btnNewButton, BorderLayout.NORTH);
-//	      setContentPane(content);
+
 	     
 
 	      setSize(900,700);
@@ -109,104 +94,6 @@ public class GuiMain extends JFrame {
 	      setVisible(true);
 	     
 	}
-
-
-	   
- 
-	   private class GoListener implements ActionListener {
-	      public void actionPerformed(ActionEvent evt) {
-	       
-	      }
-	   }
   
 	   
-	   /**
-	    * Loads the document at the specified URL into the edit pane.
-	    */
-	   private void loadURL(URL url,  JEditorPane editPane) {
-	   
-
-	   }
-	   public JPanel newTAb() {
-		   	JPanel panelTab = new JPanel();
-		      panelTab.setLayout(new BorderLayout());
-		      GuiScreen viewPanel = new GuiScreen("http:\\google.com") ;  
-		      
-		      panelTab.add(viewPanel,BorderLayout.CENTER);
-		      
-		      JToolBar toolbar = new JToolBar();
-		      toolbar.setFloatable(false);
-		      panelTab.add(toolbar,BorderLayout.NORTH);
-		      ActionListener goListener = new GoListener();
-		      JTextField locationInput = new JTextField("search Url", 40);
-		      locationInput.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent evt) {
-					// TODO Auto-generated method stub
-					  URL url;
-				         try {
-				            String location = locationInput.getText().trim();
-				            if (location.length() == 0)
-				               throw new Exception();
-				            if(location.contains(" ")) {
-				            	//String s = "https://coccoc.com/search?query=chfo%20m%E1%BB%8Di%20ng%C6%B0%E1%BB%9D"
-				            	 location ="https://coccoc.com/search?query="+location.replace(" ", "%20");
-				            	
-				            }else if (!location.contains("://"))
-				               location = "http://" + location;
-				            
-				            url = new URL(location);
-				            System.out.println(url.toString());
-				         }
-				         catch (Exception e) {
-				            JOptionPane.showMessageDialog(GuiMain.this, 
-				                  "The Location input box does not\nccontain a legal URL.");
-				            return;
-				         }
-				      //   loadURL(url, viewPanel);
-				         locationInput.selectAll();
-				         locationInput.requestFocus();
-					
-				}
-			});
-		      locationInput.addFocusListener(new FocusListener() {
-				
-				@Override
-				public void focusLost(FocusEvent e) {
-					// TODO Auto-generated method stub
-					if(locationInput.getText().equals("")) {
-						locationInput.setText("search Url") ; 
-					}
-				}
-				
-				@Override
-				public void focusGained(FocusEvent e) {
-					// TODO Auto-generated method stub
-					if(locationInput.getText().equals("search Url")) {
-						locationInput.setText(""); 
-					}
-				}
-			});
-		      JButton goButton = new JButton("");
-		      Icon icon;
-				try {
-					//icon = new ImageIcon(ImageIO.read(new File("search1jpg.jpg")));
-					
-					
-					BufferedImage bufferImage = ImageIO.read(new File("search.png"));
-					icon = new ImageIcon(bufferImage.getScaledInstance(25, 20, Image.SCALE_SMOOTH));
-					goButton.setIcon(icon);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-			      
-		      goButton.addActionListener(goListener);
-		      toolbar.add( new JLabel(" Location: "));
-		      toolbar.add(locationInput);
-		      toolbar.addSeparator(new Dimension(5,0));
-		      toolbar.add(goButton);
-		    return panelTab ; 
-	   }
 }
