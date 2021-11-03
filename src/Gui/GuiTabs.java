@@ -28,6 +28,7 @@ public class GuiTabs extends JFrame {
         tabbedPane = new JTabbedPane(JTabbedPane.TOP,
                 JTabbedPane.SCROLL_TAB_LAYOUT);
  
+      
         /* add first tab */
         tabbedPane.add(createJPanel(), "Tab " + String.valueOf(numTabs),
                 numTabs++);
