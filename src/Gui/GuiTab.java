@@ -184,7 +184,7 @@ public class GuiTab extends JPanel {
 			viewPanel.loadViewToURL(location);
 		}
 		// load input search 
-		locationInput.setText(viewPanel.getUrl()); 
+		//locationInput.setText(viewPanel.getUrl()); 
 		viewPanel.getHistory() ; 
 	}
 	
