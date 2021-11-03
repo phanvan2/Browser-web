@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -27,18 +29,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
+import com.sun.jdi.Location;
+
+
 
 public class GuiTab extends JPanel {
 	String url = ""; 
 	GuiScreen viewPanel; 
-	
+	public JTextField locationInput = new JTextField("search Url", 40);
 	public GuiTab() {
 		url= "http:\\google.com" ; 
-		viewPanel = new GuiScreen(url) ; 
+		viewPanel = new GuiScreen(url, locationInput) ; 
 	}
 	public GuiTab(String url) {
 		this.url = url ; 
-		viewPanel = new GuiScreen(this.url) ; 
+		viewPanel = new GuiScreen(this.url, locationInput) ; 
 	}
 	public void startTab() {
 			      this.setLayout(new BorderLayout());
@@ -50,7 +55,32 @@ public class GuiTab extends JPanel {
 			      toolbar.setFloatable(false);
 			      this.add(toolbar,BorderLayout.NORTH);
 			      
-			      JTextField locationInput = new JTextField("search Url", 40);
+			     
+			      locationInput.addKeyListener(new KeyListener() {
+					
+					@Override
+					public void keyTyped(KeyEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyReleased(KeyEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void keyPressed(KeyEvent e) {
+						// TODO Auto-generated method stub
+						if(e.getKeyCode() ==  KeyEvent.VK_ENTER) {
+							String search = locationInput.getText(); 
+							loadView(search);
+							
+						}
+					}
+				});
+			      
 			      
 			      locationInput.addFocusListener(new FocusListener() {
 					
@@ -70,20 +100,9 @@ public class GuiTab extends JPanel {
 						}
 					}
 				});
-			      JButton goButton = new JButton("");
-			      Icon icon;
-					try {
-						//icon = new ImageIcon(ImageIO.read(new File("search1jpg.jpg")));
-						
-						
-						BufferedImage bufferImage = ImageIO.read(new File("search.png"));
-						icon = new ImageIcon(bufferImage.getScaledInstance(25, 20, Image.SCALE_SMOOTH));
-						goButton.setIcon(icon);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} 
-				      
+			      JButton goButton = new JButton("");	
+			      addIconButton("search.png", goButton, 25, 20);
+			     
 			      goButton.addActionListener(new ActionListener() {
 					
 					@Override
@@ -93,16 +112,45 @@ public class GuiTab extends JPanel {
 						loadView(search);
 					}
 				});
-			      JButton btn_back = new JButton("back");
+			      
+			      
+			      JButton btn_back = new JButton("");
 			      toolbar.add(btn_back);
+			      addIconButton("iconBack1.jpg", btn_back, 25,20);
+				
 			      btn_back.addActionListener(new ActionListener() {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						viewPanel.backHistory();
+						viewPanel.backHandle();
 					}
 				});
+			      JButton btn_forward = new JButton("");
+			      toolbar.add(btn_forward);
+			      addIconButton("iconForward.jpg", btn_forward, 25, 20);
+			     
+			      
+			      btn_forward.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						viewPanel.forwardHandle();
+					}
+				});
+			      JButton btn_reload = new JButton(""); 
+			      toolbar.add(btn_reload); 
+			      addIconButton("iconReload.jpg", btn_reload, 25, 20);
+			      btn_reload.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						viewPanel.reLoad();
+					}
+				});
+		
 			      toolbar.add( new JLabel(" Location: "));
 			      toolbar.add(locationInput);
 			      toolbar.addSeparator(new Dimension(5,0));
@@ -127,13 +175,40 @@ public class GuiTab extends JPanel {
 		
 		if(search.contains("https://") || search.contains("http://"))
 			viewPanel.loadViewToURL(search);
-		else if(search.contains(" ")) {
+		
+		else if(checkUrl(search)) {
+			viewPanel.loadViewToURL("http://" + search) ; 
+		}else {
        	 	String location ="https://www.google.com.ar/search?q="+search.replace(" ", "+");
 
 			viewPanel.loadViewToURL(location);
-		}else {
-			viewPanel.loadViewToURL("http://" + search) ; 
 		}
+		// load input search 
+		locationInput.setText(viewPanel.getUrl()); 
+		viewPanel.getHistory() ; 
+	}
+	
+	// check url contain .com or .vn or ...
+	public boolean checkUrl(String s) {
+		int len = s.length(); 
+		if(s.indexOf(".com") == (len - 4) || s.indexOf(".vn") == (len -3)){
+			return true ; 
+		}
+		return false; 
+	}
+	
+	// set icon cho button
+	public void addIconButton(String path_image, JButton btn, int width, int height) {
+		  try {
+				
+				BufferedImage bufferImage = ImageIO.read(new File(path_image));
+				Icon icon1 = new ImageIcon(bufferImage.getScaledInstance(width, height, Image.SCALE_SMOOTH));
+				btn.setIcon(icon1);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+	      
 	}
 	
 	public static void main(String[] args) {
@@ -147,6 +222,10 @@ public class GuiTab extends JPanel {
 		frame.setSize(600, 300);
 		frame.setVisible(true) ; 
 		
+		
+		
 	}
 
+	
+	
 }

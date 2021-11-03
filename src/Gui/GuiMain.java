@@ -40,6 +40,13 @@ import javax.swing.event.HyperlinkListener;
 import javax.swing.plaf.basic.BasicTabbedPaneUI.TabbedPaneLayout;
 
 
+/**
+ * 
+ * @author phanvan2
+ * @github https://github.com/phanvan2
+ *
+ */
+
 
 public class GuiMain extends JFrame {
 
@@ -67,7 +74,7 @@ public class GuiMain extends JFrame {
 		JTabbedPane tabbedPane = new GuiTabs().createJTabbedPane(); 
 		
 	     
-	      setBackground(Color.BLACK);
+	      //setBackground(Color.RED);
 	      getContentPane().setLayout(new BorderLayout(1,1));
 			
 			try {// set icon giao dien---------------------------
