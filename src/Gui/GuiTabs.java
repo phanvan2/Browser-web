@@ -48,6 +48,18 @@ public class GuiTabs extends JFrame {
     	panel.startTab();
         return panel;
     }
+    /** create JPanel contain a JLabel */
+    public JPanel createJPanel(String url) {
+    	System.out.println("oke bro ");
+    	GuiTab panel = new GuiTab(url); 
+    	panel.startTab();
+        return panel;
+    }
+    private JPanel createTabHistory() {
+    	GuiHistory panel = new GuiHistory(this);  
+//    	panel.startTab();
+        return panel;
+    }
  
     ChangeListener changeListener = new ChangeListener() {
         @Override
@@ -70,7 +82,36 @@ public class GuiTabs extends JFrame {
             numTabs++;
         }
     }
- 
+    public void addNewTab(String url) {
+    	System.out.println("Xin chào mợi người ");
+        int index = numTabs - 1;
+//        if (tabbedPane.getSelectedIndex() == index) { /* if click new tab */
+            /* add new tab */
+            tabbedPane.add(createJPanel(url), "Tab " + String.valueOf(index),
+                    index);
+            /* set tab is custom tab */
+            tabbedPane.setTabComponentAt(index, new CustomTab(this));
+            tabbedPane.removeChangeListener(changeListener);
+            tabbedPane.setSelectedIndex(index);
+            tabbedPane.addChangeListener(changeListener);
+            numTabs++;
+//        }
+    }
+    public void addTabHistory() {
+    	
+        	int index = numTabs - 1;
+       
+            /* add new tab */
+            tabbedPane.add(createTabHistory(), "History " ,
+                    index);
+            /* set tab is custom tab */
+            tabbedPane.setTabComponentAt(index, new CustomTab(this));
+            tabbedPane.removeChangeListener(changeListener);
+            tabbedPane.setSelectedIndex(index);
+            tabbedPane.addChangeListener(changeListener);
+            numTabs++;
+     
+    } 
     public void removeTab(int index) {
         tabbedPane.remove(index);
         numTabs--;
