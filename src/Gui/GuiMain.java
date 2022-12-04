@@ -70,15 +70,16 @@ public class GuiMain extends JFrame {
 	 * Create the frame.
 	 */
 	public GuiMain() {
-		setTitle("webBrowser");
-		JTabbedPane tabbedPane = new GuiTabs().createJTabbedPane(); 
+		setTitle("wBrowser");
+		GuiTabs guitab  = new GuiTabs() ; 
+		JTabbedPane tabbedPane = guitab.createJTabbedPane(); 
 		
 	     
 	      //setBackground(Color.RED);
 	      getContentPane().setLayout(new BorderLayout(1,1));
 			
 			try {// set icon giao dien---------------------------
-				Image iconmes = ImageIO.read(new File("log.png"));
+				Image iconmes = ImageIO.read(new File("1.png"));
 				this.setIconImage(iconmes); 
 				
 				
@@ -88,7 +89,18 @@ public class GuiMain extends JFrame {
 			
 			}
 			
-
+		JButton btn1 = new JButton("History") ; 
+		btn1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stubƯ
+				
+				System.out.print("hello") ; 
+				guitab.addTabHistory() ; 
+			}
+		});
+		getContentPane().add(btn1, BorderLayout.NORTH); 
 	      getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 	     

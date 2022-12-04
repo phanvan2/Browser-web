@@ -101,7 +101,7 @@ public class GuiTab extends JPanel {
 					}
 				});
 			      JButton goButton = new JButton("");	
-			      addIconButton("search.png", goButton, 25, 20);
+			      addIconButton("2.png", goButton, 25, 20);
 			     
 			      goButton.addActionListener(new ActionListener() {
 					
@@ -116,7 +116,7 @@ public class GuiTab extends JPanel {
 			      
 			      JButton btn_back = new JButton("");
 			      toolbar.add(btn_back);
-			      addIconButton("iconBack1.jpg", btn_back, 25,20);
+			      addIconButton("3png.png", btn_back, 25,20);
 				
 			      btn_back.addActionListener(new ActionListener() {
 					
@@ -128,7 +128,7 @@ public class GuiTab extends JPanel {
 				});
 			      JButton btn_forward = new JButton("");
 			      toolbar.add(btn_forward);
-			      addIconButton("iconForward.jpg", btn_forward, 25, 20);
+			      addIconButton("4.jpg", btn_forward, 25, 20);
 			     
 			      
 			      btn_forward.addActionListener(new ActionListener() {
@@ -141,7 +141,7 @@ public class GuiTab extends JPanel {
 				});
 			      JButton btn_reload = new JButton(""); 
 			      toolbar.add(btn_reload); 
-			      addIconButton("iconReload.jpg", btn_reload, 25, 20);
+			      addIconButton("6.png", btn_reload, 25, 20);
 			      btn_reload.addActionListener(new ActionListener() {
 					
 					@Override
@@ -151,7 +151,7 @@ public class GuiTab extends JPanel {
 					}
 				});
 		
-			      toolbar.add( new JLabel(" Location: "));
+//			      toolbar.add( new JLabel(" Location: "));
 			      toolbar.add(locationInput);
 			      toolbar.addSeparator(new Dimension(5,0));
 			      toolbar.add(goButton);
@@ -184,7 +184,7 @@ public class GuiTab extends JPanel {
 			viewPanel.loadViewToURL(location);
 		}
 		// load input search 
-		locationInput.setText(viewPanel.getUrl()); 
+		//locationInput.setText(viewPanel.getUrl()); 
 		viewPanel.getHistory() ; 
 	}
 	
